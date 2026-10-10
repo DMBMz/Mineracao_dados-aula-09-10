@@ -1,0 +1,7 @@
+conda install -c conda-forge beautifulsoup4 requests
+
+python -m http.server --bind 127.0.0.1 8000
+
+lsof -i TCP:8000 (retorna o PID do processo rodando na porta 8000)
+
+kill -9 pid (mata processo com o pid especificado)

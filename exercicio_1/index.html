@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechNova Academy - Catálogo de Cursos</title>
+    <style>
+        :root {
+            --bg-primary: #0b0f19;
+            --bg-card: #151d30;
+            --bg-card-hover: #1c2742;
+            --border-color: #24324f;
+            --accent-cyan: #38bdf8;
+            --accent-purple: #818cf8;
+            --accent-emerald: #34d399;
+            --accent-amber: #fbbf24;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            padding: 48px 24px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1100px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .badge-header {
+            display: inline-block;
+            background: rgba(56, 189, 248, 0.12);
+            color: var(--accent-cyan);
+            border: 1px solid rgba(56, 189, 248, 0.25);
+            padding: 6px 16px;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        header h1 {
+            font-size: 2.75rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #ffffff 30%, #93c5fd 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 12px;
+        }
+
+        header p {
+            color: var(--text-secondary);
+            font-size: 1.15rem;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .grade-cursos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 28px;
+        }
+
+        .curso-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .curso-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .curso-card:hover {
+            transform: translateY(-6px);
+            background-color: var(--bg-card-hover);
+            border-color: rgba(56, 189, 248, 0.4);
+            box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        .curso-card:hover::before {
+            opacity: 1;
+        }
+
+        .curso-cabecalho {
+            margin-bottom: 20px;
+        }
+
+        .curso-nome {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 14px;
+            line-height: 1.35;
+        }
+
+        .meta-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            font-size: 0.82rem;
+            font-weight: 600;
+            padding: 5px 12px;
+            border-radius: 8px;
+        }
+
+        .tag-area {
+            background-color: rgba(129, 140, 248, 0.15);
+            color: #a5b4fc;
+            border: 1px solid rgba(129, 140, 248, 0.3);
+        }
+
+        .tag-carga {
+            background-color: rgba(52, 211, 153, 0.15);
+            color: #6ee7b7;
+            border: 1px solid rgba(52, 211, 153, 0.3);
+        }
+
+        .secao-conteudo {
+            background-color: rgba(11, 15, 25, 0.5);
+            border: 1px solid rgba(36, 50, 79, 0.6);
+            border-radius: 12px;
+            padding: 18px 20px;
+        }
+
+        .assuntos-titulo {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .curso-assuntos {
+            list-style: none;
+            padding-left: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .curso-assuntos li {
+            position: relative;
+            padding-left: 22px;
+            font-size: 0.93rem;
+            color: #cbd5e1;
+            line-height: 1.45;
+        }
+
+        .curso-assuntos li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--accent-cyan);
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        footer {
+            margin-top: 60px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="badge-header">Plataforma de Ensino Fictícia</div>
+            <h1>TechNova Academy</h1>
+            <p>Formações imersivas voltadas às habilidades mais demandadas do mercado tecnológico contemporâneo.</p>
+        </header>
+
+        <main class="grade-cursos">
+            <!-- Curso 1 -->
+            <article class="curso-card" id="curso-1">
+                <div class="curso-cabecalho">
+                    <h2 class="curso-nome">Desenvolvimento Web Full Stack</h2>
+                    <div class="meta-tags">
+                        <span class="tag tag-area">Área: <span class="curso-area">Programação e Software</span></span>
+                        <span class="tag tag-carga">Carga Horária: <span class="curso-carga">120 horas</span></span>
+                    </div>
+                </div>
+                <div class="secao-conteudo">
+                    <h3 class="assuntos-titulo">Assuntos Estudados</h3>
+                    <ul class="curso-assuntos">
+                        <li>HTML5 semântico, CSS3 moderno com Grid/Flexbox e Responsividade</li>
+                        <li>JavaScript assíncrono (ES6+), manipulação do DOM e consumo de APIs REST</li>
+                        <li>Desenvolvimento backend com Python, frameworks web e bancos de dados SQL</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- Curso 2 -->
+            <article class="curso-card" id="curso-2">
+                <div class="curso-cabecalho">
+                    <h2 class="curso-nome">Ciência de Dados e Inteligência Artificial</h2>
+                    <div class="meta-tags">
+                        <span class="tag tag-area">Área: <span class="curso-area">Dados e Inteligência Artificial</span></span>
+                        <span class="tag tag-carga">Carga Horária: <span class="curso-carga">140 horas</span></span>
+                    </div>
+                </div>
+                <div class="secao-conteudo">
+                    <h3 class="assuntos-titulo">Assuntos Estudados</h3>
+                    <ul class="curso-assuntos">
+                        <li>Extração, limpeza e análise exploratória de grandes volumes de dados com Pandas</li>
+                        <li>Visualização analítica e storytelling de dados usando Matplotlib e Seaborn</li>
+                        <li>Modelagem preditiva e algoritmos de Machine Learning com Scikit-Learn</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- Curso 3 -->
+            <article class="curso-card" id="curso-3">
+                <div class="curso-cabecalho">
+                    <h2 class="curso-nome">Cibersegurança e Testes de Intrusão (Pentest)</h2>
+                    <div class="meta-tags">
+                        <span class="tag tag-area">Área: <span class="curso-area">Segurança da Informação</span></span>
+                        <span class="tag tag-carga">Carga Horária: <span class="curso-carga">90 horas</span></span>
+                    </div>
+                </div>
+                <div class="secao-conteudo">
+                    <h3 class="assuntos-titulo">Assuntos Estudados</h3>
+                    <ul class="curso-assuntos">
+                        <li>Arquitetura e análise de tráfego em redes de computadores com Wireshark</li>
+                        <li>Mapeamento e exploração de vulnerabilidades web (OWASP Top 10)</li>
+                        <li>Criptografia aplicada, segurança de credenciais e auditoria de sistemas</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- Curso 4 -->
+            <article class="curso-card" id="curso-4">
+                <div class="curso-cabecalho">
+                    <h2 class="curso-nome">Design de Interface e Experiência do Usuário (UI/UX)</h2>
+                    <div class="meta-tags">
+                        <span class="tag tag-area">Área: <span class="curso-area">Design Digital</span></span>
+                        <span class="tag tag-carga">Carga Horária: <span class="curso-carga">80 horas</span></span>
+                    </div>
+                </div>
+                <div class="secao-conteudo">
+                    <h3 class="assuntos-titulo">Assuntos Estudados</h3>
+                    <ul class="curso-assuntos">
+                        <li>Pesquisa empírica de usuários, mapeamento de jornadas e personas</li>
+                        <li>Criação de protótipos de alta fidelidade e Design Systems no Figma</li>
+                        <li>Testes de usabilidade, heurísticas de Nielsen e métricas de conversão</li>
+                    </ul>
+                </div>
+            </article>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 TechNova Academy. Exercício Prático de Web Scraping.</p>
+        </footer>
+    </div>
+</body>
+</html>
